@@ -437,7 +437,10 @@ def trigger_gc():
 
 
 if __name__ == '__main__':
-    # Start the garbage collector daemon
-    gc.start(interval=1800)  # Every 30 minutes
+    gc.start(interval=1800)
     logger.info("[STARTUP] Garbage Collector daemon started.")
-    app.run(debug=True, port=5000, use_reloader=False)
+
+    import os
+    port = int(os.environ.get("PORT", 10000))
+
+    app.run(host="0.0.0.0", port=port, debug=False)
